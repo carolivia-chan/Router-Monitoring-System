@@ -1,0 +1,12 @@
+[Unit]
+Description=NetMon automation job: %i (rollup | retention | backup | freshness | report)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/netmon/netmon.env
+ExecStart=/opt/netmon/venv/bin/python /opt/netmon/main.py --job %i
+WorkingDirectory=/opt/netmon
+Nice=10
+TimeoutStartSec=1h

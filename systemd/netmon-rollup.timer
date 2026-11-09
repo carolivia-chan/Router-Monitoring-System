@@ -1,0 +1,10 @@
+[Unit]
+Description=NetMon automation: hourly aggregation probe_result -> probe_hourly
+
+[Timer]
+OnCalendar=*-*-* *:05:00
+Persistent=true
+Unit=netmon-job@rollup.service
+
+[Install]
+WantedBy=timers.target

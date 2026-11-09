@@ -1,0 +1,10 @@
+[Unit]
+Description=NetMon automation: daily network report (Telegram + file)
+
+[Timer]
+OnCalendar=*-*-* 07:00:00
+Persistent=true
+Unit=netmon-job@report.service
+
+[Install]
+WantedBy=timers.target

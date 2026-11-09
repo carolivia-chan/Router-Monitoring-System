@@ -1,0 +1,11 @@
+[Unit]
+Description=NetMon automation: data freshness check (every 2 minutes)
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=2min
+AccuracySec=15s
+Unit=netmon-job@freshness.service
+
+[Install]
+WantedBy=timers.target

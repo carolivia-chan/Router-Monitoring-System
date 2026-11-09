@@ -1,0 +1,46 @@
+# Monitoring stack: PostgreSQL + Prometheus + Grafana. NetMon (main.py) runs on the host, NOT in a container,
+# because it needs ipvlan on wlp1s0.   Start: sudo docker compose up -d
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: netmon
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-netmon_pw}
+      POSTGRES_DB: netmon
+    # Other measurement machines send data here: set PG_BIND=0.0.0.0 (or a Tailscale IP 100.x) in the .env file
+    # The port on the HOST is PG_PORT (default 5433, to avoid the PostgreSQL already installed on the machine at 5432);
+    # inside the container it is still 5432. NetMon runs on the host, so NETMON_PG_DSN must use PG_PORT: install.sh
+    # builds the DSN from this .env file
+    ports: ["${PG_BIND:-127.0.0.1}:${PG_PORT:-5433}:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./monitor/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    ports: ["127.0.0.1:9090:9090"]
+    volumes:
+      - ./deploy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - promdata:/prometheus
+    extra_hosts: ["host.docker.internal:host-gateway"]   # lets the container reach the exporter :9108 on the host
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.2.0
+    ports: ["3001:3000"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      PG_PASSWORD: ${PG_PASSWORD:-netmon_pw}
+      GF_USERS_DEFAULT_LANGUAGE: en-US
+    volumes:
+      - grafdata:/var/lib/grafana
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deploy/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on: [prometheus, postgres]
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  promdata:
+  grafdata:

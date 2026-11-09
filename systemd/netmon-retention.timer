@@ -1,0 +1,10 @@
+[Unit]
+Description=NetMon automation: delete expired data (daily)
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+Unit=netmon-job@retention.service
+
+[Install]
+WantedBy=timers.target

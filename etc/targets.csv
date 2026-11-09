@@ -1,0 +1,25 @@
+name,ip,country
+Host 01 - Singapore,89.187.162.1,Singapore
+Host 02 - Tokyo,89.187.160.1,Japan
+Host 03 - Bengaluru,49.205.75.2,India
+Host 04 - China AliDNS,223.5.5.5,China
+Host 05 - Dubai,69.48.238.200,United Arab Emirates
+Host 06 - Frankfurt,185.102.219.93,Germany
+Host 07 - Paris,185.93.2.193,France
+Host 08 - London,185.59.221.51,United Kingdom
+Host 09 - Amsterdam,185.102.218.1,Netherlands
+Host 10 - Zurich,89.187.165.1,Switzerland
+Host 11 - Cairo,213.158.175.240,Egypt
+Host 12 - Johannesburg,69.48.239.124,South Africa
+Host 13 - Accra,102.214.66.19,Ghana
+Host 14 - Los Angeles,185.152.67.2,United States
+Host 15 - Toronto,138.199.57.129,Canada
+Host 16 - Queretaro,121.127.43.65,Mexico
+Host 17 - Sao Paulo,138.199.4.1,Brazil
+Host 18 - Santiago,79.127.209.1,Chile
+Host 19 - Sydney,143.244.63.144,Australia
+Host 20 - Auckland,72.1.86.46,New Zealand
+Host 21 - Google Primary DNS,8.8.8.8,Anycast
+Host 22 - Google Secondary DNS,8.8.4.4,Anycast
+Host 23 - Cloudflare Primary DNS,1.1.1.1,Anycast
+Host 24 - Cloudflare Secondary DNS,1.0.0.1,Anycast

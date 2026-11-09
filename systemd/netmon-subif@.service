@@ -1,0 +1,16 @@
+[Unit]
+Description=NetMon ipvlan sub-interface %i
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/netmon/scripts/setup_subif.sh up %i
+ExecStop=/opt/netmon/scripts/setup_subif.sh down %i
+# Wi-Fi not up yet at boot -> retry
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,25 @@
+# Secrets: Telegram token, PostgreSQL password (install.sh creates /etc/netmon/netmon.env itself)
+etc/netmon.env
+.env
+*.env
+
+# MaxMind GeoLite2: the license does not allow redistribution, and the files are large (City ~50 MB).
+# Download them into data/ as described in the README
+data/*.mmdb
+
+# Files generated at run time
+results/
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Temporary backups
+*.bak
+*.bak.*
+
+# Archives (e.g. a zip of the project kept in the same folder)
+*.zip
+*.tar
+*.tar.gz
+*.tgz

@@ -1,0 +1,15 @@
+[Unit]
+Description=NetMon route monitor 
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/netmon/netmon.env
+ExecStart=/opt/netmon/venv/bin/python /opt/netmon/main.py
+WorkingDirectory=/opt/netmon
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=NetMon automation: PostgreSQL backup with pg_dump (daily)
+
+[Timer]
+OnCalendar=*-*-* 03:00:00
+Persistent=true
+Unit=netmon-job@backup.service
+
+[Install]
+WantedBy=timers.target

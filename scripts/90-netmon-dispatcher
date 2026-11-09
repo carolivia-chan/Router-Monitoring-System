@@ -1,0 +1,12 @@
+#!/bin/sh
+# NetworkManager dispatcher: when a parent interface reconnects (its IP / gateway may have changed), rebuild the
+# sub-interfaces. Parents = PARENT plus every parent declared in UPLINKS (e.g. usb0 of a tethered phone).
+[ -r /etc/netmon/netmon.conf ] && . /etc/netmon/netmon.conf
+[ "$2" = "up" ] || exit 0
+for p in ${PARENT:-wlp1s0} $(for s in $UPLINKS; do echo "$s" | cut -d: -f2; done); do
+  if [ "$1" = "$p" ]; then
+    systemctl try-restart --no-block 'netmon-subif@*.service'
+    break
+  fi
+done
+exit 0
